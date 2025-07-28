@@ -1471,7 +1471,7 @@ function updatePosition(timestamp) {
         if (marker.iconName === 'shahed.png') {
             marker.totalTrailDistance += dist;
 
-            if (marker.totalTrailDistance >= 10) {
+            if (marker.totalTrailDistance >= 50) {
                 marker.trailCoords = [[newLat, newLng]];
                 marker.totalTrailDistance = 0;
             } else {
