@@ -1444,44 +1444,21 @@ function updatePosition(timestamp) {
     if (!startTime) startTime = timestamp;
     const elapsedTime = (timestamp - startTime) / 1000;
 
-    // Получаем новую позицию маркера
     const [newLat, newLng] = calculateNewPosition(lat, lng, speed, elapsedTime, targetLat, targetLng);
-
     marker.setLatLng([newLat, newLng]);
 
-    if (!marker.trailCoords && shouldHaveTrail(marker.iconClass, marker.iconName)) {
-        const lineColor = (marker.iconClass === 'blue-id') ? '#006AFE' : '#dd0347';
-
-        marker.trailCoords = [[lat, lng]];
-        marker.trailLine = L.polyline(marker.trailCoords, {
-            color: lineColor,
-            weight: 2,
-            opacity: 0.8
-        }).addTo(map);
-
-        if (marker.iconName === 'shahed.png') {
-            marker.totalTrailDistance = 0;
-        }
-    }
+if (!marker.trailCoords && shouldHaveTrail(marker.iconClass, marker.iconName)) {
+    let lineColor = (marker.iconClass === 'blue-id') ? '#006AFE' : 'red';
+    marker.trailCoords = [[marker.lat, marker.lng]];
+    marker.trailLine = L.polyline(marker.trailCoords, {
+        color: lineColor,
+        weight: 3,
+        opacity: 0.8
+    }).addTo(map);
+}
 
     if (marker.trailLine) {
-        const last = marker.trailCoords[marker.trailCoords.length - 1];
-        const dist = haversine(last[0], last[1], newLat, newLng);
-
-        if (marker.iconName === 'shahed.png') {
-            marker.totalTrailDistance += dist;
-
-            if (marker.totalTrailDistance >= 50) {
-                marker.trailCoords = [[newLat, newLng]];
-                marker.totalTrailDistance = 0;
-            } else {
-                marker.trailCoords.push([newLat, newLng]);
-            }
-        } else {
-            marker.trailCoords.push([newLat, newLng]);
-        }
-
-        // Обновляем линию просто текущими координатами, без дрожи
+        marker.trailCoords.push([newLat, newLng]);
         marker.trailLine.setLatLngs(marker.trailCoords);
     }
 
