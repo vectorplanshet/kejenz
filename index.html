@@ -1255,24 +1255,7 @@ let iconCreated = false;
                         iconAnchor: [10, 10],
                     });
 // Список иконок, для которых нужна линия
-const iconsWithTrail = [
-    'Su-34.png', 'Su-35.png', 'Su-57.png',
-    'Su-24.png', 'Su-25.png',
-    'kalibr.png', 'kinzhal.png', 'iskander.png', 'kh-22.png',
-    'shahed.png' // добавим сюда shahed
-];
-
-// Функция расчёта расстояния в км между двумя координатами
-function getDistanceKm(lat1, lng1, lat2, lng2) {
-    const R = 6371; // Радиус Земли в км
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLng = (lng2 - lng1) * Math.PI / 180;
-    const a = Math.sin(dLat / 2) ** 2 +
-        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-        Math.sin(dLng / 2) ** 2;
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
-}
+const iconsWithTrail = ['Su-34.png', 'Su-35.png', 'Su-57.png', 'Su-24.png', 'Su-25.png', 'kalibr.png', 'kinzhal.png', 'iskander.png', 'kh-22.png'];
 
 function shouldHaveTrail(iconClass, iconName) {
     return iconClass === 'blue-id' || iconsWithTrail.includes(iconName);
@@ -1282,38 +1265,23 @@ function shouldHaveTrail(iconClass, iconName) {
 const marker = L.marker([lat, lng], { icon }).addTo(map);
 
 // Пример: iconClass и iconName должны быть известны тут:
-marker.iconClass = iconClass;     // например 'blue-id' или другое
-marker.iconName = iconUrl;        // например 'Su-34.png' или 'shahed.png'
+marker.iconClass = iconClass;    // например 'blue-id' или что-то другое
+marker.iconName = iconUrl;       // например 'Su-34.png' или 'Su-25.png'
 
 // Проверяем, нужна ли линия, и создаём только если нужно
 if (shouldHaveTrail(marker.iconClass, marker.iconName)) {
     let lineColor = (marker.iconClass === 'blue-id') ? '#006AFE' : '#dd0347';
-function getNoisyTrail(trailCoords, intensity = 0.0002) {
-    return trailCoords.map(([lat, lng]) => {
-        const noisyLat = lat + (Math.random() - 0.5) * intensity;
-        const noisyLng = lng + (Math.random() - 0.5) * intensity;
-        return [noisyLat, noisyLng];
-    });
-}
 
     marker.trailCoords = [[lat, lng]];
-    marker.trailLine = L.polyline(getNoisyTrail(marker.trailCoords), {
+    marker.trailLine = L.polyline(marker.trailCoords, {
         color: lineColor,
-        weight: 2,
-        opacity: 0.8,
-
+        weight: 3,
+        opacity: 0.8
     }).addTo(map);
-
-
-    // Если это shahed — начинаем считать пройденное расстояние
-    if (marker.iconName === 'shahed.png') {
-        marker.totalTrailDistance = 0;
-    }
 } else {
     marker.trailCoords = null;
     marker.trailLine = null;
 }
-
 
 
 
