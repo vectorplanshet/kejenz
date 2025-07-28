@@ -22,7 +22,7 @@
 ></script>
     <style>
         /* General Map Styles */
-        #map {
+ #map {
             height: 100vh;
         }
 
@@ -52,9 +52,67 @@
     z-index: 1000; /* Слои, чтобы быть выше карты */
 }
 .leaflet-control-layers {
-    z-index: 2000; /* Выше, чем topbar */
-    position: relative; /* или absolute, если нужно */
+  z-index: 2000;
+  position: relative;
+  zoom: 0.5;
+  transform-origin: top left;
 }
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    background: #252b36;
+    padding: 10px 12px;
+    border-radius: 7px;
+    z-index: 1001;
+    max-width: 180px;
+    width: 90%;
+    transition: all 0.35s ease;
+    color: #f0f0f0;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 7px;
+}
+
+.modal h2 {
+    font-size: 11px;
+    color: #ffffff;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 4px 5px;
+    font-size: 7px;
+    background-color: #1e232c;
+    color: #ffffff;
+    border-radius: 4px;
+    border: 1px solid #3a4152;
+}
+
+input[type="text"]:focus {
+    border-color: #4a90e2;
+    background-color: #252b36;
+    outline: none;
+}
+
+.modal-button {
+    width: 100%;
+    padding: 6px;
+    font-size: 7.5px;
+    margin-top: 10px;
+    background-color: #4674dc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
 .modal-background {
     position: fixed;
     top: 0;
@@ -67,63 +125,11 @@
     backdrop-filter: blur(4px);
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.95);
-    background: #252b36;
-    padding: 20px 24px;
-    border-radius: 14px;
-    z-index: 1001;
-    max-width: 360px;
-    width: 90%;
-    transition: all 0.35s ease;
-    color: #f0f0f0;
-    font-family: 'Segoe UI', sans-serif;
-}
-
 .modal.show {
     display: block;
     transform: translate(-50%, -50%) scale(1);
 }
 
-.modal h2 {
-    font-size: 22px;
-    color: #ffffff;
-    margin-bottom: 16px;
-    text-align: center;
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 8px 10px;
-    font-size: 14px;
-    background-color: #1e232c;
-    color: #ffffff;
-    border-radius: 8px;
-    border: 2px solid #3a4152;
-}
-
-input[type="text"]:focus {
-    border-color: #4a90e2;
-    background-color: #252b36;
-    outline: none;
-}
-
-.modal-button {
-    width: 100%;
-    padding: 12px;
-    font-size: 15px;
-    margin-top: 20px;
-    background-color: #4674dc;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
 :root {
     --map-tiles-filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.5) brightness(0.7) grayscale(3);
 }
@@ -144,14 +150,14 @@ input[type="text"]:focus {
 
         /* Сдвигаем контейнер вправо для нужных объектов */
         .shifted-info-container {
-            margin-left: 7px; /* Сдвиг на 20px вправо, можно менять значение */
+            margin-left: 2.1px; /* Сдвиг на 20px вправо, можно менять значение */
         }
         .shifted-info-containerr {
-            margin-right: 50px;
+            margin-right: 10px;
         }
     
         .red-id {
-            color: #000000;
+            color: #dd0347;
         }
         .blue-id {
             color: #006AFE; /* Синий цвет для текста */
@@ -185,23 +191,23 @@ input[type="text"]:focus {
             margin-left: 25px;
         }
         .info-container {
-            line-height: 15px;
+            line-height: 7.5px;
         }
         .label-container {
-            font-size: 14px;
+            font-size: 7px;
             font-weight: 600;
                     font-family: 'Roboto', sans-serif;
  
             -webkit-text-stroke-color: black;
         }
         .r-container {
-            font-size: 14px;
+            font-size: 7px;
             font-weight: 600;
             font-family: 'Roboto', sans-serif;
  
         }
         .rls1-container {
-            font-size: 14px;
+            font-size: 7px;
             font-family: 'Roboto', sans-serif;
  
             display: flex;
@@ -211,7 +217,7 @@ input[type="text"]:focus {
     color: black;
    }    
         .rls-container {
-            font-size: 14px;
+            font-size: 7px;
             display: flex;
             font-family: 'Roboto', sans-serif;
             font-weight: 600;
@@ -220,143 +226,155 @@ input[type="text"]:focus {
     color: black;
    }
         .label1-container {
-            font-size: 14px;
+            font-size: 7px;
             font-family: 'Roboto', sans-serif;
             font-weight: 600;
             -webkit-text-stroke-color: black;
             color: black;
         }
         .r1-container {
-            font-size: 14px;
+            font-size: 7px;
             font-weight: 600;
             font-family: 'Roboto', sans-serif;
             color: black;
         }
 
-        /* Delete Button */
-        #deleteButton {
-            width: 37px;
-      height: 32px;
-      border-radius: 2px;
-      background-color: rgb(101, 101, 101);
-      color: rgb(130, 130, 130);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      font-size: 16px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
-      border: none;
-      cursor: pointer;
-    }
-        /* Smooth Transition for Modals */  
-        .modal.show {
-            display: block;
-            animation: fadeIn 0.3s ease-out;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        .icon-container {
+#deleteButton {
+    width: 18.5px;    /* 37 / 2 */
+    height: 16px;     /* 32 / 2 */
+    border-radius: 1px; /* 2 / 2 */
+    background-color: rgb(101, 101, 101);
+    color: rgb(130, 130, 130);
     display: flex;
     align-items: center;
-    gap: 13px;
-    font-size: 14px;
+    justify-content: center;
+    padding: 0;
+    font-size: 8px;    /* 16 / 2 */
+    box-shadow: 0 0.5px 2px rgba(0,0,0,0.3); /* 1 / 2, 4 / 2 */
+    border: none;
+    cursor: pointer;
+}
+
+/* Smooth Transition for Modals */  
+.modal.show {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+    gap: 6.5px;   /* 13 / 2 */
+    font-size: 7px; /* 14 / 2 */
     position: absolute;
     white-space: nowrap; /* Убираем перенос текста */
 }
-        .icon-container .icon {
-            width: 34px;
-            height: 34px;
-            object-fit: cover;
-            display: block;
-        }
 
-        /* Modal Input Background for Target Coordinates */
-        #targetModal {
-            padding: 20px;
-            border-radius: 10px;
-        }
-        #alert-container {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 1000;
-        }
-        #alert-menu {
-            background: #d2d2d2;
-    padding: 20px;
-    display: none; /* Изначально скрыто */
+.icon-container .icon {
+    width: 19px;   /* 34 / 2 */
+    height: 19px;  /* 34 / 2 */
+    object-fit: cover;
+    display: block;
+}
+
+/* Modal Input Background for Target Coordinates */
+#targetModal {
+    padding: 10px;   /* 20 / 2 */
+    border-radius: 5px; /* 10 / 2 */
+}
+
+#alert-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+}
+
+#alert-menu {
+    background: #d2d2d2;
+    padding: 10px;       /* 20 / 2 */
+    display: none;       /* Изначально скрыто */
     border: none;
-    width: 250px;
-    height: 1103px;
+    width: 125px;        /* 250 / 2 */
+    height: 551.5px;     /* 1103 / 2 */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #000000;
-    font-size: 14px;
+    font-size: 7px;      /* 14 / 2 */
     transition: all 0.3s ease;
     position: absolute;
 }
 
 #alert-menu:hover {
-    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2); /* 6 / 2, 20 / 2 */
 }
+
 .leaflet-control-attribution {
     display: none !important;
 }
-        #alert-menu h3 {
-            margin: 0 0 10px;
-            text-align: center;
-            font-size: 16px;
-            color: #c4c4c4;
-        }
-        #alert-menu div {
-            margin-bottom: 5px;
-        }
-        #alert-menu input[type=checkbox] {
-            margin-right: 5px;
-        }
-        button#alert-button {
-            width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background-color: #e91e63;
-      color: white;
-      font-weight: bold;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      border: none;
-      cursor: pointer;
-    }
-    .overlay {
+
+#alert-menu h3 {
+    margin: 0 0 5px;   /* 0 0 10px / 2 */
+    text-align: center;
+    font-size: 8px;    /* 16 / 2 */
+    color: #c4c4c4;
+}
+
+#alert-menu div {
+    margin-bottom: 2.5px; /* 5 / 2 */
+}
+
+#alert-menu input[type=checkbox] {
+    margin-right: 2.5px;  /* 5 / 2 */
+}
+
+button#alert-button {
+    width: 17px;             /* 34px / 2 */
+    height: 17px;            /* 34px / 2 */
+    border-radius: 50%;
+    background-color: #50785D;
+    color: white;
+    font-weight: bold;
+    font-size: 6px;          /* 14px / 2 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+.overlay {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 9999;
     width: 100%;
     height: 100%;
-    background: rgba(255, 0, 0, 0.2);  /* Ярко-красный полупрозрачный фон для теста */
+    background: rgba(255, 0, 0, 0.2);
     background: url('kod.png') center/cover no-repeat;
-    pointer-events: none; /* Позволяет кликам проходить сквозь */
-    z-index: 2000; /* Поверх карты */
-    opacity: 0.1; /* Сделать картинку менее прозрачной */
-    transition: filter 0.3s ease; /* Плавный переход фильтра */
+    pointer-events: none;
+    z-index: 2000;
+    opacity: 0.1;
+    transition: filter 0.3s ease;
 }
+
 /* Кастомизация всплывающего окна */
 .leaflet-popup-content {
-    background-color: #f0f0f0; /* Светлый фон */
-    color: #333;               /* Темный цвет текста */
-    padding: 10px;
-    border-radius: 10px;       /* Скругленные углы */
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 5px;           /* 10 / 2 */
+    border-radius: 5px;     /* 10 / 2 */
     font-family: 'Arial', sans-serif;
-    font-size: 14px;
+    font-size: 7px;         /* 14 / 2 */
 }
 
 /* Стиль для стрелочки всплывающего окна */
@@ -367,161 +385,170 @@ input[type="text"]:focus {
 /* Стиль для заголовка в окне */
 .leaflet-popup-content h3 {
     margin-top: 0;
-    font-size: 16px;
+    font-size: 8px;         /* 16 / 2 */
     color: #555;
 }
+
 .leaflet-control.ruler {
-        position: absolute;
-        right: 10px;
-        left: auto;
-        top: auto;
-      }
-      * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Arial", sans-serif;
-        }
+    position: absolute;
+    right: 10px;
+    left: auto;
+    top: auto;
+}
 
-        body {
-            background: #f0f0f0;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+}
 
-        /* Стили меню */
-        #passwordContainer {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #252b36; /* Градиент синего */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        color: white;
-        text-align: center;
-        z-index: 1010;
-    }
+body {
+    background: #f0f0f0;
+}
 
-    #passwordContainer img {
-        width: 250px;
-        height: 25x;
-    }
+/* Стили меню */
+#passwordContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #252b36;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+    z-index: 1010;
+}
 
-    #loginInput, #passwordInput {
-        padding: 20px 15px;
-        font-size: 14px;
-        width: 400px;
-        height: 30px;
-        border: none;
-        border-radius: 4px;
-        background-color: #3d4558;
-        color: #fff;
-        text-align: left;
-        background-position: 15px center;
-        background-repeat: no-repeat;
-        background-size: 25px;
-    }
+#passwordContainer img {
+    width: 125px;   /* 250 / 2 */
+    height: auto; /* 25 / 2 */
+}
 
-    #loginInput::placeholder,
-    #passwordInput::placeholder {
-        color: #b0b3b8;
-    }
-    #submitButton {
-    padding: 12px 40px; /* помягче */
-    font-size: 14px;
+#loginInput, #passwordInput {
+    padding: 10px 7.5px; /* 20px 15px / 2 */
+    font-size: 7px;      /* 14 / 2 */
+    width: 200px;        /* 400 / 2 */
+    height: 15px;        /* 30 / 2 */
+    border: none;
+    border-radius: 2px;  /* 4 / 2 */
+    background-color: #3d4558;
+    color: #fff;
+    text-align: left;
+    background-position: 7.5px center; /* 15 / 2 */
+    background-repeat: no-repeat;
+    background-size: 12.5px;           /* 25 / 2 */
+}
+
+#loginInput::placeholder,
+#passwordInput::placeholder {
+    color: #b0b3b8;
+}
+
+#submitButton {
+    padding: 6px 20px;  /* 12px 40px / 2 */
+    font-size: 7px;     /* 14 / 2 */
     background-color: #4674dc;
     color: white;
     border: none;
-    cursor: pointer;    
+    cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     border-radius: 0px;
 }
 
-    #submitButton:hover {
-        background-color: #5c90de;
-    }
-
-    #submitButton:active {
-        background-color: #0033cc;
-        transform: scale(0.98);
-    }
-        #menu-icon {
-    position: absolute;
-    top: 17px;  /* Располагаем сверху */
-    left: 20px; /* Иконка будет слева */
-    width: 170px;  /* Задаем размер иконки (по желанию) */
-    height: 25px; /* Задаем размер иконки (по желанию) */
+#submitButton:hover {
+    background-color: #5c90de;
 }
+
+#submitButton:active {
+    background-color: #0033cc;
+    transform: scale(0.98);
+}
+
+#menu-icon {
+    position: absolute;
+    top: 8.5px;  /* 17 / 2 */
+    left: 10px;  /* 20 / 2 */
+    width: 85px; /* 170 / 2 */
+    height: 12.5px; /* 25 / 2 */
+}
+
 .inputWrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 10px; /* Расстояние между логином и паролем */
-        margin-bottom: 205px; /* Отступ вниз до кнопки */
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 5px;       /* 10 / 2 */
+    margin-bottom: 102.5px; /* 205 / 2 */
+}
+
 .custom-menu {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  z-index: 1000;
+    position: absolute;
+    bottom: 10px;  /* 20 / 2 */
+    right: 10px;   /* 20 / 2 */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;     /* 20 / 2 */
+    z-index: 1000;
 }
 
 .menu-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 6px;
-  justify-content: flex-start;  /* Добавлено для выравнивания по левому краю */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;      /* 6 / 2 */
+    justify-content: flex-start;
 }
 
 .custom-button {
-  width: 37px;
-  height: 28px;
-  background-color: rgb(101, 101, 101);
-  border-radius: 2px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: default;
+    width: 18.5px;  /* 37 / 2 */
+    height: 14px;   /* 28 / 2 */
+    background-color: rgb(101, 101, 101);
+    border-radius: 1px; /* 2 / 2 */
+    box-shadow: 0 0.5px 2px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
 }
 
 .custom-button img {
-  width: 25px;
-  height: 25px;
+    width: 12.5px; /* 25 / 2 */
+    height: 12.5px; /* 25 / 2 */
 }
 
-
-    .custom-button.green {
-      background-color: rgb(101, 101, 101);
-    }
-    #warning-message {
-  position: fixed;
-  top: 0;
-  width: 100%;
-height: 25px;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: rgb(255, 0, 68);
-  text-align: center;
-  padding: 5px;
-  font-size: 14px;
-  z-index: 9999;
+.custom-button.green {
+    background-color: rgb(101, 101, 101);
 }
+
+#warning-message {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 12.5px; /* 25 / 2 */
+    background-color: rgba(0, 0, 0, 0.8);
+    color: rgb(255, 0, 68);
+    text-align: center;
+    padding: 2.5px;   /* 5 / 2 */
+    font-size: 7px;   /* 14 / 2 */
+    z-index: 9999;
+}
+
 .hidden {
-  display: none;
-}/* Медиазапросы для мобильных устройств */
+    display: none;
+}
+
+/* Медиазапросы для мобильных устройств */
 @media (max-width: 768px) {
     .icon-container {
-        font-size: 12px;
+        font-size: 6px; /* 12 / 2 */
     }
 
     .icon-container .icon {
-        width: 28px;
-        height: 28px;
+        width: 14px;  /* 28 / 2 */
+        height: 14px; /* 28 / 2 */
     }
 
     .label-container,
@@ -530,9 +557,10 @@ height: 25px;
     .rls-container,
     .label1-container,
     .r1-container {
-        font-size: 13px;
+        font-size: 6.5px; /* 13 / 2 */
     }
 }
+
     </style>
 </head>
 <body>
@@ -553,7 +581,7 @@ height: 25px;
   <!-- Меню в правом нижнем углу -->
   <div class="custom-menu">
     <div class="menu-row">
-            <div style="width: 34px;"></div>
+            <div style="width: 55px;"></div>
       <div class="custom-button">
         <img src="reload.png" alt="Reload" />
       </div>
@@ -586,7 +614,7 @@ height: 25px;
       </div>
     </div>
     <div class="menu-row">
-        <div style="width: 37px;"></div>
+        <div style="width: 57px;"></div>
       <!-- Кнопка тревоги -->
       <button id="alert-button">0</button>
       <!-- Кнопка удаления -->
@@ -841,7 +869,7 @@ map.on('layerremove', updateOverlayFilter);
 // Если карта уже загружена, сразу применим фильтр
 updateOverlayFilter();
 
-        let currentObjectId = 9500;
+        let currentObjectId = 8900;
         let deleteMode = false;
         const markers = [];
 
@@ -985,7 +1013,6 @@ updateOverlayFilter();
                 
     // Если скорость 0, сразу устанавливаем иконку EPVO
     iconUrl = 'EPVO.png'; 
-    iconClass = 'blue-id';  
 
     // Генерируем ID от 500000 и время по Минску
     const objectId1 = getNextObjectId(); 
@@ -1200,11 +1227,28 @@ let iconCreated = false;
                     const icon = L.divIcon({
                         className: 'icon',
                         html: iconHtml,
-                        iconSize: [30, 30],
-                        iconAnchor: [20, 20],
+                        iconSize: [17, 17],
+                        iconAnchor: [10, 10],
                     });
 // Список иконок, для которых нужна линия
-const iconsWithTrail = ['Su-34.png', 'Su-35.png', 'Su-57.png', 'Su-24.png', 'Su-25.png', 'kalibr.png', 'kinzhal.png', 'iskander.png', 'kh-22.png'];
+const iconsWithTrail = [
+    'Su-34.png', 'Su-35.png', 'Su-57.png',
+    'Su-24.png', 'Su-25.png',
+    'kalibr.png', 'kinzhal.png', 'iskander.png', 'kh-22.png',
+    'shahed.png' // добавим сюда shahed
+];
+
+// Функция расчёта расстояния в км между двумя координатами
+function getDistanceKm(lat1, lng1, lat2, lng2) {
+    const R = 6371; // Радиус Земли в км
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLng = (lng2 - lng1) * Math.PI / 180;
+    const a = Math.sin(dLat / 2) ** 2 +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLng / 2) ** 2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+}
 
 function shouldHaveTrail(iconClass, iconName) {
     return iconClass === 'blue-id' || iconsWithTrail.includes(iconName);
@@ -1214,23 +1258,38 @@ function shouldHaveTrail(iconClass, iconName) {
 const marker = L.marker([lat, lng], { icon }).addTo(map);
 
 // Пример: iconClass и iconName должны быть известны тут:
-marker.iconClass = iconClass;    // например 'blue-id' или что-то другое
-marker.iconName = iconUrl;       // например 'Su-34.png' или 'Su-25.png'
+marker.iconClass = iconClass;     // например 'blue-id' или другое
+marker.iconName = iconUrl;        // например 'Su-34.png' или 'shahed.png'
 
 // Проверяем, нужна ли линия, и создаём только если нужно
 if (shouldHaveTrail(marker.iconClass, marker.iconName)) {
     let lineColor = (marker.iconClass === 'blue-id') ? '#006AFE' : '#dd0347';
+function getNoisyTrail(trailCoords, intensity = 0.0002) {
+    return trailCoords.map(([lat, lng]) => {
+        const noisyLat = lat + (Math.random() - 0.5) * intensity;
+        const noisyLng = lng + (Math.random() - 0.5) * intensity;
+        return [noisyLat, noisyLng];
+    });
+}
 
     marker.trailCoords = [[lat, lng]];
-    marker.trailLine = L.polyline(marker.trailCoords, {
+    marker.trailLine = L.polyline(getNoisyTrail(marker.trailCoords), {
         color: lineColor,
-        weight: 3,
-        opacity: 0.8
+        weight: 2,
+        opacity: 0.8,
+
     }).addTo(map);
+
+
+    // Если это shahed — начинаем считать пройденное расстояние
+    if (marker.iconName === 'shahed.png') {
+        marker.totalTrailDistance = 0;
+    }
 } else {
     marker.trailCoords = null;
     marker.trailLine = null;
 }
+
 
 
 
@@ -1300,6 +1359,13 @@ marker.on('click', function() {
     marker.openPopup();
 });
 
+function getNoisyTrail(trailCoords, intensity = 0.001) {
+    return trailCoords.map(([lat, lng]) => {
+        const noisyLat = lat + (Math.random() - 0.5) * intensity;
+        const noisyLng = lng + (Math.random() - 0.5) * intensity;
+        return [noisyLat, noisyLng];
+    });
+}
 
 
 
@@ -1322,26 +1388,76 @@ let startTime = null;
 function shouldHaveTrail(iconClass, iconName) {
     return iconClass === 'blue-id' || iconsWithTrail.includes(iconName);
 }
+let noisePhase = 0;
 
+// Функция мелких "ветровых" колебаний с амплитудой, плавно зависящей от скорости
+function getWindyNoiseTrail(coords, speed, maxAmplitude = 0.0003, minAmplitude = 0.00001) {
+    noisePhase += 0.008; // плавное изменение фазы
+
+    const maxSpeed = 100; // замени на максимальную скорость твоих объектов
+
+    // Нормируем скорость от 0 до 1
+    const speedNorm = Math.min(speed / maxSpeed, 1);
+
+    // Используем sqrt для более мягкого увеличения амплитуды при росте скорости
+    const speedFactor = Math.sqrt(speedNorm);
+
+    // Вычисляем итоговую амплитуду дрожи
+    const amplitude = Math.max(minAmplitude, maxAmplitude * speedFactor);
+
+    return coords.map((point, i) => {
+        const lat = point[0];
+        const lng = point[1];
+
+        // Плавные колебания с разными фазами, чтобы дрожь была «ветровой»
+        const offsetLat = amplitude * Math.sin(noisePhase + i * 1.1);
+        const offsetLng = amplitude * Math.cos(noisePhase * 1.3 + i * 1.7);
+
+        return [lat + offsetLat, lng + offsetLng];
+    });
+}
 function updatePosition(timestamp) {
     if (!startTime) startTime = timestamp;
     const elapsedTime = (timestamp - startTime) / 1000;
 
+    // Получаем новую позицию маркера
     const [newLat, newLng] = calculateNewPosition(lat, lng, speed, elapsedTime, targetLat, targetLng);
+
     marker.setLatLng([newLat, newLng]);
 
-if (!marker.trailCoords && shouldHaveTrail(marker.iconClass, marker.iconName)) {
-    let lineColor = (marker.iconClass === 'blue-id') ? '#006AFE' : 'red';
-    marker.trailCoords = [[marker.lat, marker.lng]];
-    marker.trailLine = L.polyline(marker.trailCoords, {
-        color: lineColor,
-        weight: 3,
-        opacity: 0.8
-    }).addTo(map);
-}
+    if (!marker.trailCoords && shouldHaveTrail(marker.iconClass, marker.iconName)) {
+        const lineColor = (marker.iconClass === 'blue-id') ? '#006AFE' : '#dd0347';
+
+        marker.trailCoords = [[lat, lng]];
+        marker.trailLine = L.polyline(marker.trailCoords, {
+            color: lineColor,
+            weight: 2,
+            opacity: 0.8
+        }).addTo(map);
+
+        if (marker.iconName === 'shahed.png') {
+            marker.totalTrailDistance = 0;
+        }
+    }
 
     if (marker.trailLine) {
-        marker.trailCoords.push([newLat, newLng]);
+        const last = marker.trailCoords[marker.trailCoords.length - 1];
+        const dist = haversine(last[0], last[1], newLat, newLng);
+
+        if (marker.iconName === 'shahed.png') {
+            marker.totalTrailDistance += dist;
+
+            if (marker.totalTrailDistance >= 10) {
+                marker.trailCoords = [[newLat, newLng]];
+                marker.totalTrailDistance = 0;
+            } else {
+                marker.trailCoords.push([newLat, newLng]);
+            }
+        } else {
+            marker.trailCoords.push([newLat, newLng]);
+        }
+
+        // Обновляем линию просто текущими координатами, без дрожи
         marker.trailLine.setLatLngs(marker.trailCoords);
     }
 
@@ -1352,7 +1468,6 @@ if (!marker.trailCoords && shouldHaveTrail(marker.iconClass, marker.iconName)) {
         if (marker.trailLine) marker.trailLine.remove();
     }
 }
-
 
 
 requestAnimationFrame(updatePosition);
@@ -1554,9 +1669,16 @@ let objectIdCounter2 = '9900';
 function getNextObjectId3() {
     return objectIdCounter2++;
 }
-    // Добавляем zoom-контрол внизу
-    let trail = L.polyline(latlngs, { color: 'red' }).addTo(map);
-    
+    function updateAlertCount() {
+      const bodyText = document.body.innerText || document.body.textContent;
+      const matches = bodyText.match(/(ПП|СВ|ЛБ|ЗЛ)/gi);
+      const count = matches ? matches.length : 0;
+      document.getElementById('alert-button').textContent = count;
+    }
+
+    // Проверяем каждые 500 мс
+    setInterval(updateAlertCount, 500);
+    updateAlertCount();
     </script>
 </body>
 </html>
