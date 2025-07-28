@@ -278,6 +278,30 @@ input[type="text"]:focus {
     position: absolute;
     white-space: nowrap; /* Убираем перенос текста */
 }
+.icon-container::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;           /* линия прижата к левому краю */
+    width: 18px;       /* длина линии */
+    height: 0.6px;       /* толщина */
+    background-color: rgb(0, 218, 0);
+    border-radius: 1px;
+}
+.icon-container1 {
+    display: flex;
+    align-items: center;
+    gap: 6.5px;   /* 13 / 2 */
+    font-size: 7px; /* 14 / 2 */
+    position: absolute;
+    white-space: nowrap; /* Убираем перенос текста */
+}
+.icon-container1 .icon {
+    width: 19px;   /* 34 / 2 */
+    height: 19px;  /* 34 / 2 */
+    object-fit: cover;
+    display: block;
+}
 
 .icon-container .icon {
     width: 19px;   /* 34 / 2 */
@@ -363,7 +387,7 @@ button#alert-button {
     background: url('kod.png') center/cover no-repeat;
     pointer-events: none;
     z-index: 2000;
-    opacity: 0.1;
+    opacity: 0.2;
     transition: filter 0.3s ease;
 }
 
@@ -749,7 +773,7 @@ body {
     });
         const map = L.map('map', {
             zoomControl: false
-        }).setView([48.3794, 31.1656], 7);
+        }).setView([48.3794, 31.1656], 6);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -1020,7 +1044,7 @@ updateOverlayFilter();
 
     // Меняем iconHtml ПОЛНОСТЬЮ
     iconHtml = `
-        <div class="icon-container ${iconClass}">
+        <div class="icon-container1 ${iconClass}">
             <img src="${iconUrl}" class="icon" />
             <div class="info-container ${shiftedClass} ${shiftedClasss}">
                 <span class="label1-container ${iconClass}">${objectId1} ${kievTime}</span>
@@ -1227,7 +1251,7 @@ let iconCreated = false;
                     const icon = L.divIcon({
                         className: 'icon',
                         html: iconHtml,
-                        iconSize: [17, 17],
+                        iconSize: [19, 19],
                         iconAnchor: [10, 10],
                     });
 // Список иконок, для которых нужна линия
