@@ -1430,7 +1430,7 @@ if (!marker.trailCoords && shouldHaveTrail(marker.iconClass, marker.iconName)) {
         marker.trailLine.setLatLngs(marker.trailCoords);
     }
 
-    if (haversine(newLat, newLng, targetLat, targetLng) > 1) {
+    if (haversine(newLat, newLng, targetLat, targetLng) > 0.1) {
         requestAnimationFrame(updatePosition);
     } else {
         marker.remove();
