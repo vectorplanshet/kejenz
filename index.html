@@ -207,7 +207,7 @@ input[type="text"]:focus {
  
         }
         .rls1-container {
-            font-size: 7px;
+            font-size: 6.5px;
             font-family: 'Roboto', sans-serif;
  
             display: flex;
@@ -217,7 +217,7 @@ input[type="text"]:focus {
     color: #333333;
    }    
         .rls-container {
-            font-size: 7px;
+            font-size: 6.5px;
             display: flex;
             font-family: 'Roboto', sans-serif;
             font-weight: 600;
@@ -226,14 +226,14 @@ input[type="text"]:focus {
     color: #333333;
    }
         .label1-container {
-            font-size: 7px;
+            font-size: 6.5px;
             font-family: 'Roboto', sans-serif;
             font-weight: 600;
             -webkit-text-stroke-color: black;
             color: #333333;
         }
         .r1-container {
-            font-size: 7px;
+            font-size: 6.5px;
             font-weight: 600;
             font-family: 'Roboto', sans-serif;
             color: #333333;
@@ -1255,7 +1255,7 @@ let iconCreated = false;
                         iconAnchor: [10, 10],
                     });
 // Список иконок, для которых нужна линия
-const iconsWithTrail = ['Su-34.png', 'Su-35.png', 'Su-57.png', 'Su-24.png', 'Su-25.png', 'kalibr.png', 'kinzhal.png', 'iskander.png', 'kh-22.png'];
+const iconsWithTrail = ['Su-34.png', 'Su-35.png', 'Su-57.png', 'Su-24.png', 'Su-25.png', 'kalibr.png', 'kinzhal.png', 'iskander.png', 'kh-22.png', ];
 
 function shouldHaveTrail(iconClass, iconName) {
     return iconClass === 'blue-id' || iconsWithTrail.includes(iconName);
@@ -1275,7 +1275,7 @@ if (shouldHaveTrail(marker.iconClass, marker.iconName)) {
     marker.trailCoords = [[lat, lng]];
     marker.trailLine = L.polyline(marker.trailCoords, {
         color: lineColor,
-        weight: 2.5,
+        weight: 2,
         opacity: 0.8
     }).addTo(map);
 } else {
