@@ -1236,7 +1236,6 @@ const icon = L.divIcon({
 
 const marker = L.marker([lat, lng], { icon }).addTo(map);
 
-// Скрытие предупреждения при первом клике
 if (!iconCreated) {
     document.getElementById('warning-message').classList.add('hidden');
     iconCreated = true;
@@ -1334,7 +1333,7 @@ marker.on('popupopen', () => {
 
                     if (!isActive) {
                         isActive = true;
-                        requestAnimationFrame(updatePosition);
+                        scheduleNextFrame(updatePosition);
                     }
                 }
             });
@@ -1355,6 +1354,15 @@ function rotateIcon(lat1, lng1, lat2, lng2, speed) {
 }
 
 markers.push(marker);
+
+// ==== Новая система обновления позиции, стабильная для неактивной вкладки ====
+function scheduleNextFrame(callback) {
+    if (document.hasFocus()) {
+        requestAnimationFrame(callback);
+    } else {
+        setTimeout(() => callback(performance.now()), 50); // 20 fps на неактивной вкладке
+    }
+}
 
 function updatePosition(timestamp) {
     if (!lastTimestamp) lastTimestamp = timestamp;
@@ -1379,14 +1387,14 @@ function updatePosition(timestamp) {
 
     marker.setLatLng([currentLat, currentLng]);
 
-    if (distance > 0.00001 && isActive) { 
-        requestAnimationFrame(updatePosition);
+    if (distance > 0.00001 && isActive) {
+        scheduleNextFrame(updatePosition);
     } else {
         currentWaypointIndex++;
         if (currentWaypointIndex < waypoints.length) {
             targetLatVar = waypoints[currentWaypointIndex][0];
             targetLngVar = waypoints[currentWaypointIndex][1];
-            requestAnimationFrame(updatePosition);
+            scheduleNextFrame(updatePosition);
         } else {
             isActive = false;
             marker.remove();
@@ -1397,9 +1405,9 @@ function updatePosition(timestamp) {
 waypoints.push([targetLat, targetLng]);
 currentWaypointIndex = 0;
 lastTimestamp = null;
-requestAnimationFrame(updatePosition);
+scheduleNextFrame(updatePosition);
 
-// ==== Модальное окно для "Изменить координаты" (сверху слева) ====
+// ==== Модальное окно для "Изменить координаты" ====
 
 function openCoordsModal(callback) {
     const background = document.createElement('div');
@@ -1416,12 +1424,10 @@ function openCoordsModal(callback) {
     `;
     document.body.appendChild(box);
 
-    // Расположение сверху слева
     box.style.top = '20px';
     box.style.left = '20px';
     box.style.transform = 'none';
 
-    // Drag
     let isDragging = false;
     let offsetX, offsetY;
     box.onmousedown = (e) => {
@@ -1444,11 +1450,7 @@ function openCoordsModal(callback) {
 
     const textarea = box.querySelector('#coordsInput');
     let tempWaypoints = [marker.getLatLng()];
-    let routeLine = L.polyline(tempWaypoints, {
-        color: '#dd0347',
-        weight: 1,
-        opacity: 1
-    }).addTo(map);
+    let routeLine = L.polyline(tempWaypoints, { color: '#dd0347', weight: 1, opacity: 1 }).addTo(map);
 
     const addCoord = (e) => {
         if (e.originalEvent.button !== 1) return;
@@ -1482,7 +1484,7 @@ function openCoordsModal(callback) {
             targetLngVar = waypoints[1][1];
             lastTimestamp = null;
 
-            if (!isActive) requestAnimationFrame(updatePosition);
+            if (!isActive) scheduleNextFrame(updatePosition);
         }
 
         document.body.removeChild(box);
@@ -1497,6 +1499,7 @@ function openCoordsModal(callback) {
         callback(null);
     };
 }
+
 
 
 marker.on('click', function () {
