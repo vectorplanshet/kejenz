@@ -194,14 +194,14 @@ input[type="text"]:focus {
             line-height: 7.5px;
         }
         .label-container {
-            font-size: 7px;
+            font-size: 8.5px;
             font-weight: 600;
                     font-family: 'Roboto', sans-serif;
  
             -webkit-text-stroke-color: black;
         }
         .r-container {
-            font-size: 7px;
+            font-size: 8.5px;
             font-weight: 600;
             font-family: 'Roboto', sans-serif;
  
@@ -273,7 +273,7 @@ input[type="text"]:focus {
 .icon-container {
     display: flex;
     align-items: center;
-    gap: 6.5px;   /* 13 / 2 */
+    gap: 12px;   /* 13 / 2 */
     font-size: 7px; /* 14 / 2 */
     position: absolute;
     white-space: nowrap; /* Убираем перенос текста */
@@ -283,7 +283,7 @@ input[type="text"]:focus {
     position: absolute;
     bottom: 0;
     left: 0;           /* линия прижата к левому краю */
-    width: 17px;       /* длина линии */
+    width: 20px;       /* длина линии */
     height: 0.6px;       /* толщина */
     background-color: rgb(0, 218, 0);
     border-radius: 1px;
@@ -304,8 +304,8 @@ input[type="text"]:focus {
 }
 
 .icon-container .icon {
-    width: 18px;   /* 34 / 2 */
-    height: 18px;  /* 34 / 2 */
+    width: 20px;   /* 34 / 2 */
+    height: 20px;  /* 34 / 2 */
     object-fit: cover;
     display: block;
 }
@@ -365,9 +365,9 @@ button#alert-button {
     height: 17px;            /* 34px / 2 */
     border-radius: 50%;
     background-color: #50785D;
-    color: white;
+    color: rgb(0, 0, 0);
     font-weight: bold;
-    font-size: 6px;          /* 14px / 2 */
+    font-size: 5px;          /* 14px / 2 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -500,6 +500,8 @@ body {
     width: 85px; /* 170 / 2 */
     height: 12.5px; /* 25 / 2 */
 }
+/* Меняем label на абсолютный */
+
 
 .inputWrapper {
     display: flex;
@@ -510,42 +512,46 @@ body {
 
 .custom-menu {
     position: absolute;
-    bottom: 10px;  /* 20 / 2 */
-    right: 10px;   /* 20 / 2 */
+    bottom: 10px;
+    right: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;     /* 20 / 2 */
+    gap: 10px;        /* сохраняем gap между кнопками */
+    padding: 0;
+    margin: 0;
     z-index: 1000;
 }
 
 .menu-row {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    gap: 3px;      /* 6 / 2 */
-    justify-content: flex-start;
+    gap: 3px;        /* расстояние между кнопками в ряду */
+    margin: 0;
 }
 
 .custom-button {
-    width: 18.5px;  /* 37 / 2 */
-    height: 14px;   /* 28 / 2 */
+    width: 18.5px;
+    height: 14px;
     background-color: rgb(101, 101, 101);
-    border-radius: 1px; /* 2 / 2 */
+    border-radius: 1px;
     box-shadow: 0 0.5px 2px rgba(0,0,0,0.3);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: default;
+    margin: 0;
+    padding: 0;
 }
 
 .custom-button img {
-    width: 12.5px; /* 25 / 2 */
-    height: 12.5px; /* 25 / 2 */
+    width: 12.5px;
+    height: 12.5px;
 }
 
 .custom-button.green {
     background-color: rgb(101, 101, 101);
 }
+
 
 #warning-message {
     position: fixed;
